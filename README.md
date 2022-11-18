@@ -17,19 +17,21 @@ In this project, we will create an Active Directory home lab environment with vi
 <h2>Project instructions</h2>
 
 <h3>Download the latest version of Virtual Box and the Extension Pack</h3>
+
 Go to the <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox Downloads Page</a> and download both the main host package for your system and the newest Extension Pack.
 
 <h3>Download the ISOs for Window 10 and Windows Server 2019</h3>
--You will need to download the media creation tool from the <a href="https://www.microsoft.com/en-us/software-download/windows10">Windows 10 Download Page</a> to create a Windows 10 ISO file. Once you download the media creation tool, follow the instructions on the download page to create installation media and choose "ISO file" when given the choice.
 
--To download Windows Server 2019, go to the <a href="https://www.microsoft.com/en-us/evalcenter/download-windows-server-2019">Windows Server 2019 Download Page</a> and choose the 64-bit ISO download for your language.
+You will need to download the media creation tool from the <a href="https://www.microsoft.com/en-us/software-download/windows10">Windows 10 Download Page</a> to create a Windows 10 ISO file. Once you download the media creation tool, follow the instructions on the download page to create installation media and choose "ISO file" when given the choice.
 
-These ISOs are individual files, keep these where you will remember them as you will need to point to them later. <br/>
+To download Windows Server 2019, go to the <a href="https://www.microsoft.com/en-us/evalcenter/download-windows-server-2019">Windows Server 2019 Download Page</a> and choose the 64-bit ISO download for your language.
+
+These ISOs are individual files, keep these where you will remember them as you will need to point to them later.
 
 <h3>Create the Domain Controller virtual machine and install Windows Server 2019</h3>
 Once VB is installed, open and click “New” to create a new VM. Name it “Domain Controller” and select the Windows Server 2019 ISO. Make sure “Skip unattended installation” is checked and click Next.<br/>
 
-<img src="https://i.imgur.com/K71yaM2.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
+<img src="" height="80%" width="80%" alt=""/>
 
 Use the slider or incremental controls to allocate the amount of RAM and CPUs that this VM will use. This will depend on the system you have, and will affect how fast the VM runs. I would recommend allocating at least 4GB (4096 MB) of RAM and at least 2 CPUs for this VM. Click Next.
 
