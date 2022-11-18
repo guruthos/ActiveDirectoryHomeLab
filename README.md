@@ -19,7 +19,10 @@ In this project, we will create an Active Directory home lab environment with vi
 <h2>Project instructions</h2>
 
 Download and install Virtual Box latest version and Guest Additions (I made this with version 7.0) LINK <br/>
-Download/Register the ISOs for Window 10 and Windows Server 2019 LINK
+Go to the <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank" rel="noopener noreferrer">VirtualBox Downloads page</a> and download both the main host package for your system and the newest Extension Pack.
+
+Download/Register the ISOs for Window 10 and Windows Server 2019 LINK <br/>
+
 These ISOs are individual files, keep these where you will remember them as you will need to point to them later. <br/>
 
 <h3>Create the Domain Controller virtual machine and install Windows Server 2019 on it</h3>
