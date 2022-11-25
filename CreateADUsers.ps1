@@ -1,5 +1,5 @@
 ﻿# ----- Edit these variables if you wish to use a different password or text file of names ----- #
-$PASSWORD_FOR_USERS   = "1234"
+$PASSWORD_FOR_USERS   = "Password1234"
 $USER_FIRST_LAST_LIST = Get-Content .\NamesList.txt
 # ---------------------------------------------------------------------------------------------- #
 
