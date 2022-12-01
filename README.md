@@ -31,7 +31,7 @@ These ISOs are individual files, keep these where you will remember them as you 
 <h3>Create the Domain Controller virtual machine and install Windows Server 2019</h3>
 Once VB is installed, open and click “New” to create a new VM. Name it “Domain Controller” and select the Windows Server 2019 ISO. Make sure “Skip unattended installation” is checked and click Next.<br/>
 
-<img src="" height="80%" width="80%" alt=""/>
+</a><img src="https://i.imgur.com/BrYBpHd.png" height="80%" width="80%" alt=""/>
 
 Use the slider or incremental controls to allocate the amount of RAM and CPUs that this VM will use. This will depend on the system you have, and will affect how fast the VM runs. I would recommend allocating at least 4GB (4096 MB) of RAM and at least 2 CPUs for this VM. Click Next.
 
