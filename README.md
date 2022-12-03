@@ -141,7 +141,7 @@ Once both files are downloaded to your PC’s desktop, you can drag both files o
 
 <p align="center"><br/>
 PowerShell ISE Set-ExecutionPolicy Unrestricted <br/>
-<img src="https://i.imgur.com/QA5H7VU.png" height="60%" width="60%" alt="PowerShell ISE Set-ExecutionPolicy Unrestricted"/></p>
+<img src="https://i.imgur.com/HWAXqdy.png" height="60%" width="60%" alt="PowerShell ISE Set-ExecutionPolicy Unrestricted"/></p>
 
 Now you need to change the working directory to the folder where both the script and the list of names files are located: the desktop. From the command line, type “cd C:\Users\a-eburton\Desktop but replace “a-eburton” with your special admin account you created earlier (the account with the “a-” prefix and your first name’s initial and last name). When you are typing this out, you may notice PowerShell’s context lookup feature try and help you select the correct items. Once you have it typed correctly, hit the enter key and the command line prompt should change to indicate that the working directory has changed to your desktop folder.
 
