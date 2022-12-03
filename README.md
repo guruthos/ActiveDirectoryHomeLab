@@ -95,12 +95,36 @@ Sign out of your current account by right-clicking the start button, selecting �
 <h3>Installing Remote Access Server and Network Address Translation on Domain Controller</h3>
 Open Server Manager and click on “Add roles and features.” Click Next through all the default options until you reach “Select server roles.” Check the box for “Remote Access” then click Next through more default options until you reach “Select role services.” Check the “Routing” checkbox and then “Add Features.” You will notice that this will automatically check the “DirectAccess and VPN (RAS) checkbox as well. Click Next through the remaining options and click “Install” when able. Click Close when the installation completes.
 
-On the top left of the Server Manager Dashboard, click on “Tools” then click “Routing and Remote Access.” Right-click on the local server object in the left panel and select “Configure and Enable Routing and Remote Access.” Click Next, then select the “Network address translation (NAT) radio button and click Next. On the next screen, make sure the radio button for “Use this public interface to connect to the Internet” is selected and not greyed out. If it is greyed out and unselectable, click Cancel and restart the Routing and Remote Access Setup Wizard (go back to the beginning of this paragraph’s directions) and that should fix the issue. From the two interfaces available for selection, select the one that connects to the Internet (this one should be named “Internet” to distinguish it). Click Next, then Finish.
+On the top left of the Server Manager Dashboard, click on “Tools” then click “Routing and Remote Access.” Right-click on the local server object in the left panel and select “Configure and Enable Routing and Remote Access.”
+
+<p align="center"><br/>
+Configure and Enable Routing and Remote Access menu <br/>
+<img src="https://i.imgur.com/0w77MUL.png" height="70%" width="70%" alt="Configure and Enable Routing and Remote Access menu"/></p>
+
+Click Next, then select the “Network address translation (NAT) radio button and click Next. On the next screen, make sure the radio button for “Use this public interface to connect to the Internet” is selected and not greyed out. If it is greyed out and unselectable, click Cancel and restart the Routing and Remote Access Setup Wizard (go back to the beginning of this paragraph’s directions) and that should fix the issue. From the two interfaces available for selection, select the one that connects to the Internet (this one should be named “Internet” to distinguish it). Click Next, then Finish.
+
+<p align="center"><br/>
+Routing and Remote Access Public Interface greyed out (cancel wizard and start over) <br/>
+<img src="https://i.imgur.com/TquOK3h.png" height="60%" width="60%" alt="Routing and Remote Access Public Interface greyed out (cancel wizard and start over)"/></p>
+
+<p align="center"><br/>
+Routing and Remote Access Public Interface selectable (success!) <br/>
+<img src="https://i.imgur.com/1vKiiD6.png" height="60%" width="60%" alt="Routing and Remote Access Public Interface selectable (success!)"/></p>
 
 <h3>Set up DHCP on Domain Controller</h3>
-Open Server Manager and click on “Add roles and features” again. Once again, click Next until you reach “Select server roles.” Check the “DHCP Server” checkbox, then click “Add Features,” then click Next through the remainder of the screens. Click Install, then click Close. Back in Server Manager, click “Tools” and then click “DHCP.” Once the DHCP window opens, you should see the server object in the left panel. Click on the arrow to the left of it to reveal the IPv4 and IPv6 objects. Right-click on the IPv4 object and click “New Scope” to begin the New Scope Wizard. Click Next, then type “172.16.0.100-200” and click Next. Enter 172.16.0.100 for the “Start IP address,” 172.16.0.200 for the “End IP address,” and 255.255.255.0 for the “Subnet mask.” Click Next through the rest of the default options until you reach the “Configure DHCP Options” screen. Make sure “Yes, I want to configure these options now” is selected and click Next. On the “Router (Default Gateway) screen, enter the IP address of the Domain Controller’s “Internal” IP address (we set this to 172.16.0.1 earlier) and click Add, then click Next through the remaining default options and click Finish.
+Open Server Manager and click on “Add roles and features” again. Once again, click Next until you reach “Select server roles.” Check the “DHCP Server” checkbox, then click “Add Features,” then click Next through the remainder of the screens. Click Install, then click Close. Back in Server Manager, click “Tools” and then click “DHCP.” Once the DHCP window opens, you should see the server object in the left panel. Click on the arrow to the left of it to reveal the IPv4 and IPv6 objects. Right-click on the IPv4 object and click “New Scope” to begin the New Scope Wizard. Click Next, then type “172.16.0.100-200” and click Next. Enter 172.16.0.100 for the “Start IP address,” 172.16.0.200 for the “End IP address,” and 255.255.255.0 for the “Subnet mask.” 
+
+<p align="center"><br/>
+Setting the scope's IP address range <br/>
+<img src="https://i.imgur.com/P9YBkxz.png" height="60%" width="60%" alt="Setting the scope's IP address range"/></p>
+
+Click Next through the rest of the default options until you reach the “Configure DHCP Options” screen. Make sure “Yes, I want to configure these options now” is selected and click Next. On the “Router (Default Gateway) screen, enter the IP address of the Domain Controller’s “Internal” IP address (we set this to 172.16.0.1 earlier) and click Add, then click Next through the remaining default options and click Finish.
 
 Back in the DHCP window, right-click on the server object (dc.mydomain.com) and click “Authorize.” Then right-click it again and click “Refresh.” Now the icons for the IPv4 and IPv6 objects should have green check marks. Click the arrow next to the IPv4 object to expand it and you should see the new Scope object that we just created.
+
+<p align="center"><br/>
+DHCP window after authorization, refreshed and expanded <br/>
+<img src="https://i.imgur.com/BBcBnvY.png" height="75%" width="75%" alt="DHCP window after authorization, refreshed and expanded"/></p>
 
 <h3>Download and Run a PowerShell Script to add Users</h3>
 You can use Active Directory to add users one at a time, similar to the way we created the admin account earlier, but that is time-consuming. Instead of that method, we can use a PowerShell script that will automatically add 1000 or so users. 
@@ -115,7 +139,17 @@ Once you arrive at the Github page where the file is located, you may notice the
 
 Once both files are downloaded to your PC’s desktop, you can drag both files over to the VM’s desktop window (This is why we set up the “Drag ‘n’ Drop” property to bidirectional). Once the files are successfully copied to the VM’s desktop, open Windows PowerShell ISE as an Administrator (to do this, right-click on the Windows PowerShell ISE icon and select “More” then “Run as Administrator”. Then click “Yes” on the User Account Control dialog that pops up). From within PowerShell ISE, click “File” then “Open” then locate and select the CreateADUsers.ps1 file and click “Open.” Now you should see the file’s code in the top half of the PowerShell window and a command line prompt in the bottom half. Click your cursor in the bottom half of the PowerShell window so you can type on the command line. From here, type “Set-ExecutionPolicy Unrestricted” and hit enter. Click “Yes to All” when the “Execution Policy Change” dialog pops up. This is a security feature designed to warn you of the possible danger of running scripts as they may contain malicious code. If it worked correctly, you should see the same command line prompt as before with no messages (error or otherwise).
 
-Now you need to change the working directory to the folder where both the script and the list of names files are located: the desktop. From the command line, type “cd C:\Users\a-eburton\Desktop but replace “a-eburton” with your special admin account you created earlier (the account with the “a-” prefix and your first name’s initial and last name). When you are typing this out, you may notice PowerShell’s context lookup feature try and help you select the correct items. Once you have it typed correctly, hit the enter key and the command line prompt should change to indicate that the working directory has changed to your desktop folder. Type “dir” and press enter to show the contents of the folder you have navigated to. You should see both the “CreateADUsers.ps1” and “NamesList.txt” files in the output. Now, once you have unrestricted the execution policy and changed directories to the VM’s desktop, you can run the script. Click on the green arrow in PowerShell ISE or press F5 on your keyboard to run it. You should see users being created as they scroll down the window. Wait until the script finishes and returns to the command prompt. To confirm these users were created correctly, you can open “Active Directory Users and Computers,” select the domain object in the left panel and double-click on the _USERS organizational unit and they should display in the right panel.
+<p align="center"><br/>
+PowerShell ISE Set-ExecutionPolicy Unrestricted <br/>
+<img src="https://i.imgur.com/QA5H7VU.png" height="60%" width="60%" alt="PowerShell ISE Set-ExecutionPolicy Unrestricted"/></p>
+
+Now you need to change the working directory to the folder where both the script and the list of names files are located: the desktop. From the command line, type “cd C:\Users\a-eburton\Desktop but replace “a-eburton” with your special admin account you created earlier (the account with the “a-” prefix and your first name’s initial and last name). When you are typing this out, you may notice PowerShell’s context lookup feature try and help you select the correct items. Once you have it typed correctly, hit the enter key and the command line prompt should change to indicate that the working directory has changed to your desktop folder.
+
+<p align="center"><br/>
+Changing the working directory (remember to replace "a-eburton" with your account name) <br/>
+<img src="https://i.imgur.com/vIzHxNv.png" height="60%" width="60%" alt="Changing the working directory (remember to replace "a-eburton" with your account name)"/></p>
+
+Type “dir” and press enter to show the contents of the folder you have navigated to. You should see both the “CreateADUsers.ps1” and “NamesList.txt” files in the output. Now, once you have unrestricted the execution policy and changed directories to the VM’s desktop, you can run the script. Click on the green arrow in PowerShell ISE or press F5 on your keyboard to run it. You should see users being created as they scroll down the window. Wait until the script finishes and returns to the command prompt. To confirm these users were created correctly, you can open “Active Directory Users and Computers,” select the domain object in the left panel and double-click on the _USERS organizational unit and they should display in the right panel.
 
 <h3>Creating the Windows 10 Client VM</h3>
 In VirtualBox, create a new Vm using the Windows 10 ISO and name it something to distinguish it as a client machine. You can use the same hardware allocations as you did earlier on the Domain Controller VM. Once the VM is created, right-click on it and open settings. Click on Network, and change Adapter 1’s “Attached to” property to “Internal Network.” Click OK.
@@ -124,39 +158,21 @@ Start the new Client VM to begin the Windows 10 setup. When the “Activate Wind
 
 Enter a default username when asked, “Who’s going to use this PC?” I entered “user” and left the password option on the next screen blank. When you get to “Choose privacy settings for your device,” toggle everything to off (you may have to scroll down, there are so many options to toggle). Skip every screen that you can from here on out without accepting any of Microsoft’s “personalization” services. After this, the setup process should enter its final leg and eventually Windows 10 will open.
 
-Right-click on the Start button and click “System.” Scroll down and click on “Rename this PC (advanced)” then click “Change.” Type the name of your client VM (I used CLIENT1), then select the Domain radio button in the “Member of” section and type “mydomain.com” and click OK. In the security window that pops up, enter the admin account credentials (the account with the “a-” prefix) and click OK. After a moment or two, you should see a message box appear that confirms joining the domain was successful. Allow the client VM to restart.
+Right-click on the Start button and click “System.” Scroll down and click on “Rename this PC (advanced)” then click “Change.”
+
+<p align="center"><br/>
+Locating Rename this PC (advanced) <br />
+<img src="https://i.imgur.com/ZM6kuU6.png" height="60%" width="60%" alt="Locating Rename this PC (advanced)"/></p>
+
+Type the name of your client VM (I used CLIENT1), then select the Domain radio button in the “Member of” section and type “mydomain.com” and click OK. In the security window that pops up, enter the admin account credentials (the account with the “a-” prefix) and click OK. After a moment or two, you should see a message box appear that confirms joining the domain was successful. Allow the client VM to restart.
 
 The client VM should now be joined to the domain and the Domain Controller VM should now show the client VM as a member of the domain. You can check this by opening Server Manager on the Domain Controller VM, clicking on “Tools” then “DHCP.” Expand the domain object, then expand the IPv4 object, then expand the Scope object inside that. Click on “Address Leases” and you should see an entry from the client VM. When the client joined the domain, it requested and received an IP address from the DHCP service running on the Domain Controller VM. Notice that the IP address given is within the range of addresses as defined earlier in the scope.
 
-Now you have a working Active Directory Home Lab running on your PC! You can test out the other users login credentials by logging in as them and seeing how Active Directory works with different users on the same machine. Use this Home Lab to learn more about Active Directory - try deleting and adding users, restricting access, forcing a change password policy, etc.
+<p align="center"><br/>
+Successful assignment of IP address from Domain Controller <br />
+<img src="https://i.imgur.com/9nEV1MI.png" height="75%" width="75%" alt="Successful assignment of IP address from Domain Controller"/></p>
 
-<p align="center">
-<img src="https://i.imgur.com/62TgaWL.png" height="80%" width="80%" alt="Disk Sanitization Steps"/></p>
-<br />
-<br />
-Select the disk:  <br/>
-<img src="https://i.imgur.com/tcTyMUE.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-Enter the number of passes: <br/>
-<img src="https://i.imgur.com/nCIbXbg.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-Confirm your selection:  <br/>
-<img src="https://i.imgur.com/cdFHBiU.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-Wait for process to complete (may take some time):  <br/>
-<img src="https://i.imgur.com/JL945Ga.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-Sanitization complete:  <br/>
-<img src="https://i.imgur.com/K71yaM2.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-<br />
-<br />
-Observe the wiped disk:  <br/>
-<img src="https://i.imgur.com/AeZkvFQ.png" height="80%" width="80%" alt="Disk Sanitization Steps"/>
-
+Congratulations! You now have a working Active Directory Home Lab running on your PC! You can test out the other users login credentials by logging in as them and seeing how Active Directory works with different users on the same machine. Use this Home Lab to learn more about Active Directory - try deleting and adding users, restricting access, forcing a change password policy, etc.
 
 <!--
  ```diff
