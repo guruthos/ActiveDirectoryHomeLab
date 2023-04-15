@@ -95,7 +95,7 @@ Sign out of your current account by right-clicking the start button, selecting �
 <h3>Installing Remote Access Server and Network Address Translation on Domain Controller</h3>
 Open Server Manager and click on “Add roles and features.” Click Next through all the default options until you reach “Select server roles.” Check the box for “Remote Access” then click Next through more default options until you reach “Select role services.” Check the “Routing” checkbox and then “Add Features.” You will notice that this will automatically check the “DirectAccess and VPN (RAS) checkbox as well. Click Next through the remaining options and click “Install” when able. Click Close when the installation completes.
 
-On the top left of the Server Manager Dashboard, click on “Tools” then click “Routing and Remote Access.” Right-click on the local server object in the left panel and select “Configure and Enable Routing and Remote Access.”
+On the top right of the Server Manager Dashboard, click on “Tools” then click “Routing and Remote Access.” Right-click on the local server object in the left panel and select “Configure and Enable Routing and Remote Access.”
 
 <p align="center"><br/>
 Configure and Enable Routing and Remote Access menu <br/>
